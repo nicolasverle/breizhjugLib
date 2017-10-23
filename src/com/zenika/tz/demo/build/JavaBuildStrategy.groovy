@@ -1,12 +1,14 @@
 package com.zenika.tz.demo.build
 
 import com.zenika.tz.demo.CommandWrapper
-import com.zenika.tz.demo.ResultFormatEnum
+import com.zenika.tz.demo.test.QualityChecker
 import com.zenika.tz.demo.test.QualityRequirements
 
 class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
 
     private static final String MAVEN_ALIAS = "m3"
+
+    private QualityChecker qualityChecker
 
     @Override
     void build() {
@@ -21,10 +23,10 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
             sh("mvn test")
             junit("target/surefire-reports/*.xml")
             if(requirements) {
+                qualityChecker = new QualityChecker()
                 if(requirements.minCoverage) {
                     sh("mvn cobertura:cobertura")
-                    def report = parseFile("cobertura.xml", ResultFormatEnum.XML)
-                    report[line]
+                    qualityChecker.ensureCoverageRateAttained(requirements.minCoverage)
                 }
             }
         }

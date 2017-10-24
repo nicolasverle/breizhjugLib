@@ -8,20 +8,23 @@ import static com.zenika.tz.demo.PipelineContextHolder.buildContext
 def call(Closure body) {
 
     node(buildContext.nodes) {
-        requirements = QualityRequirements.builder().withDefaultRequirements()
         if(body) {
             body.resolveStrategy = Closure.DELEGATE_FIRST
             body.delegate = this
             body()
         }
-        buildContext.strategy().test()
+        buildContext.strategy().analyze(requirements)
     }
 
 }
 
-def withRequirements(Map params) {
-    if(params.maxCriticals) {
-        requirements.maxCriticals = params.maxCriticals
+def failIf(Map params) {
+    if(params) {
+        requirements =
+            QualityRequirements.builder()
+                .withMinCoverage(params.minCoverage)
+                .withMaxBlockings(params.maxBlocking)
+                .withMaxCriticals(params.maxCriticals)
+            .build()
     }
-
 }

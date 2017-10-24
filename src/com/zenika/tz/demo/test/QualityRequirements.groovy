@@ -2,11 +2,11 @@ package com.zenika.tz.demo.test
 
 final class QualityRequirements {
 
-    int maxCriticals
+    Integer maxCriticals
 
-    int maxBlockings
+    Integer maxBlockings
 
-    double minCoverage
+    Double minCoverage
 
     private QualityRequirements() {}
 
@@ -22,26 +22,25 @@ final class QualityRequirements {
             this.qualityRequirements = qualityRequirements
         }
 
-        QualityRequirementsBuilder withMaxCriticals(int maxCriticals) {
-            qualityRequirements.maxCriticals = maxCriticals
+        QualityRequirementsBuilder withMaxCriticals(Object maxCriticals) {
+            if(maxCriticals) {
+                qualityRequirements.maxCriticals = (Integer)maxCriticals
+            }
             return this
         }
 
-        QualityRequirementsBuilder withMaxBlockings(int maxBlockings) {
-            qualityRequirements.maxBlockings = maxBlockings
+        QualityRequirementsBuilder withMaxBlockings(Object maxBlockings) {
+            if(maxBlockings) {
+                qualityRequirements.maxBlockings = (Integer)maxBlockings
+            }
             return this
         }
 
-        QualityRequirementsBuilder withMinCoverage(double minCoverage) {
-            qualityRequirements.minCoverage = minCoverage
+        QualityRequirementsBuilder withMinCoverage(Object minCoverage) {
+            if(minCoverage) {
+                qualityRequirements.minCoverage = (Double)minCoverage
+            }
             return this
-        }
-
-        QualityRequirements withDefaultRequirements() {
-            qualityRequirements.maxBlockings = 1
-            qualityRequirements.maxCriticals = 0
-            qualityRequirements.minCoverage = 80.0
-            return qualityRequirements
         }
 
         QualityRequirements build() {

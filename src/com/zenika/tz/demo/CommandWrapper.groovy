@@ -1,9 +1,6 @@
 package com.zenika.tz.demo
 
 import com.cloudbees.groovy.cps.NonCPS
-import groovy.json.JsonSlurper
-@groovy.lang.Grab('org.yaml:snakeyaml:1.18')
-import org.yaml.snakeyaml.Yaml
 
 class CommandWrapper implements Serializable {
 

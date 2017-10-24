@@ -24,7 +24,7 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
         withMaven(MAVEN_ALIAS) {
             sh("mvn sonar:sonar -Dsonar.analysis.mode=preview -Dsonar.report.export.path=report.json -Dsonar.issuesReport.console.enable=true -Dsonar.host.url=${SONAR_URL}")
             if(requirements) {
-                def json = parseFile("report.json", ResultFormatEnum.JSON)
+                def json = parseFile("target/sonar/report.json", ResultFormatEnum.JSON)
                 echo("Will parse : ${JsonOutput.prettyPrint(json.toString())}")
             }
         }

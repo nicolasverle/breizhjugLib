@@ -59,13 +59,13 @@ class CommandWrapper implements Serializable {
     def parseFile(String name, ResultFormatEnum format = ResultFormatEnum.TEXT) {
         switch (format) {
             case ResultFormatEnum.JSON:
-                return formatter.toJSON(script.readJSON(name))
+                return script.readJSON(name)
                 break
             case ResultFormatEnum.XML:
                 return formatter.toXML(script.readFile(name))
                 break
             case ResultFormatEnum.YAML:
-                return formatter.toYAML(script.readYaml(name))
+                return script.readYaml(name)
                 break
             default:
                 return script.readFile(name)
@@ -75,18 +75,8 @@ class CommandWrapper implements Serializable {
     private static class CommandResultFormatter {
 
         @NonCPS
-        def toJSON(String body) {
-            return new JsonSlurper().parseText(body)
-        }
-
-        @NonCPS
         def toXML(String body) {
             return new XmlSlurper().parseText(body)
-        }
-
-        @NonCPS
-        def toYAML(String body) {
-            return new Yaml().load(body)
         }
 
     }

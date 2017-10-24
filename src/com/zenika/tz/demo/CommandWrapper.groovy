@@ -57,16 +57,16 @@ class CommandWrapper implements Serializable {
     def parseFile(String name, ResultFormatEnum format = ResultFormatEnum.TEXT) {
         switch (format) {
             case ResultFormatEnum.JSON:
-                return script.readJSON(name)
+                return script.readJSON(file: name)
                 break
             case ResultFormatEnum.XML:
-                return formatter.toXML(script.readFile(name))
+                return formatter.toXML(script.readFile(file: name))
                 break
             case ResultFormatEnum.YAML:
-                return script.readYaml(name)
+                return script.readYaml(file: name)
                 break
             default:
-                return script.readFile(name)
+                return script.readFile(file: name)
         }
     }
 

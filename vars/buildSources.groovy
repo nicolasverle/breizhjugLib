@@ -1,4 +1,5 @@
 import com.zenika.tz.demo.build.BuildContextEnum
+import com.zenika.tz.demo.build.JavaBuildStrategy
 
 import static com.zenika.tz.demo.PipelineContextHolder.buildContext
 
@@ -14,6 +15,6 @@ def java() {
     buildContext = BuildContextEnum.JAVA
     node(buildContext.nodes) {
         checkout scm
-        buildContext.strategy().build()
+        new JavaBuildStrategy().build()
     }
 }

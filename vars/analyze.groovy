@@ -6,7 +6,7 @@ import groovy.transform.Field
 
 def call(Closure body) {
 
-    node(PipelineContextHolder.buildStrategy.nodes) {
+    node(PipelineContextHolder.buildStrategy.getNodesLabel()) {
         if(body) {
             body.resolveStrategy = Closure.DELEGATE_FIRST
             body.delegate = this

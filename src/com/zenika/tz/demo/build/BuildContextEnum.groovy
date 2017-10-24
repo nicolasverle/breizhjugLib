@@ -29,7 +29,6 @@ enum BuildContextEnum {
         this.nodes = nodes
     }
 
-    BuildStrategy strategy() {
-        return null
-    }
+    abstract BuildStrategy strategy();
+
 }

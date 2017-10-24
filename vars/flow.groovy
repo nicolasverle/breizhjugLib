@@ -1,4 +1,4 @@
-def call(Map params, Closure body) {
+def call(Map params = null, Closure body) {
 
     // TODO: Parse params...
 

@@ -9,9 +9,10 @@ class CommandWrapper implements Serializable {
     def formatter = new CommandResultFormatter()
 
     CommandWrapper() {
-        if(!script) {
+        if(!PipelineContextHolder.script) {
             throw new ExceptionInInitializerError("No context found for this build.")
         }
+        script = PipelineContextHolder.script
     }
 
     void echo(String message) {

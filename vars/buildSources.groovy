@@ -1,7 +1,7 @@
 //import com.zenika.tz.demo.build.BuildContextEnum
-//import com.zenika.tz.demo.build.JavaBuildStrategy
-//
-//import static com.zenika.tz.demo.PipelineContextHolder.buildContext
+import com.zenika.tz.demo.build.JavaBuildStrategy
+
+import static com.zenika.tz.demo.PipelineContextHolder.buildContext
 
 def call(Closure body) {
     if(body) {

@@ -1,7 +1,6 @@
-import com.zenika.tz.demo.build.BuildContextEnum
 import com.zenika.tz.demo.build.JavaBuildStrategy
 
-import static com.zenika.tz.demo.PipelineContextHolder.buildContext
+import static com.zenika.tz.demo.PipelineContextHolder.buildStrategy
 
 def call(Closure body) {
     if(body) {
@@ -12,9 +11,9 @@ def call(Closure body) {
 }
 
 def java() {
-    buildContext = BuildContextEnum.JAVA
-//    node(buildContext.getNodes()) {
-//        checkout scm
-//        new JavaBuildStrategy().build()
-//    }
+    buildStrategy = new JavaBuildStrategy()
+    node(buildStrategy.getNodesLabel()) {
+        checkout scm
+        buildStrategy.build()
+    }
 }

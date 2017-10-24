@@ -1,7 +1,7 @@
 import com.zenika.tz.demo.test.QualityRequirements
 import groovy.transform.Field
 
-import static com.zenika.tz.demo.PipelineContextHolder.buildContext
+import static com.zenika.tz.demo.PipelineContextHolder.buildStrategy
 
 @Field QualityRequirements requirements
 
@@ -13,7 +13,7 @@ def call(Closure body) {
             body.delegate = this
             body()
         }
-        buildContext.strategy().analyze(requirements)
+        buildStrategy.analyze(requirements)
     }
 
 }

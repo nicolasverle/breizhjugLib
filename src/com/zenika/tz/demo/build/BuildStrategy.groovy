@@ -10,4 +10,6 @@ interface BuildStrategy {
 
     def dockerize()
 
+    String getNodesLabel()
+
 }

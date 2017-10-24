@@ -35,4 +35,9 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
     def dockerize() {
         return null
     }
+
+    @Override
+    String getNodesLabel() {
+        return "master"
+    }
 }

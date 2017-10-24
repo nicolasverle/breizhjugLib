@@ -1,11 +1,11 @@
 package com.zenika.tz.demo
 
-import com.zenika.tz.demo.build.BuildContextEnum
+import com.zenika.tz.demo.build.BuildStrategy
 
 final class PipelineContextHolder {
 
     static script
 
-    static BuildContextEnum buildContext
+    static BuildStrategy buildStrategy
 
 }

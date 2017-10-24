@@ -1,6 +1,7 @@
+import com.zenika.tz.demo.PipelineContextHolder
+
 def call(Map params = null, Closure body) {
 
-    // TODO: Parse params...
-
+    PipelineContextHolder.script = this
     body()
 }

@@ -1,19 +1,18 @@
+import com.zenika.tz.demo.PipelineContextHolder
 import com.zenika.tz.demo.test.QualityRequirements
 import groovy.transform.Field
-
-import static com.zenika.tz.demo.PipelineContextHolder.buildStrategy
 
 @Field QualityRequirements requirements
 
 def call(Closure body) {
 
-    node(buildContext.nodes) {
+    node(PipelineContextHolder.buildStrategy.nodes) {
         if(body) {
             body.resolveStrategy = Closure.DELEGATE_FIRST
             body.delegate = this
             body()
         }
-        buildStrategy.analyze(requirements)
+        PipelineContextHolder.buildStrategy.analyze(requirements)
     }
 
 }

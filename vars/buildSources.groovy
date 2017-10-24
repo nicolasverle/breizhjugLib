@@ -10,7 +10,7 @@ def call(Closure body) {
     }
 }
 
-def java(String target = "1.8") {
+def java() {
     buildContext = BuildContextEnum.JAVA
     node(buildContext.nodes) {
         checkout scm

@@ -1,6 +1,6 @@
 package com.zenika.tz.demo.test
 
-final class QualityRequirements {
+final class QualityRequirements implements Serializable {
 
     Integer maxCriticals
 

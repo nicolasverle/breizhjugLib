@@ -2,7 +2,6 @@ package com.zenika.tz.demo.build
 
 import com.zenika.tz.demo.CommandWrapper
 import com.zenika.tz.demo.ResultFormatEnum
-import com.zenika.tz.demo.test.QualityChecker
 import com.zenika.tz.demo.test.QualityRequirements
 import groovy.json.JsonOutput
 
@@ -11,8 +10,6 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
     private static final String MAVEN_ALIAS = "m3"
 
     private static final String SONAR_URL = "http://192.168.33.62:9000"
-
-    private QualityChecker qualityChecker
 
     @Override
     void build() {

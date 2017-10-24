@@ -13,7 +13,7 @@ def call(Closure body) {
 
 def java() {
     buildContext = BuildContextEnum.JAVA
-    node(buildContext.nodes) {
+    node(buildContext.getNodes()) {
         checkout scm
         new JavaBuildStrategy().build()
     }

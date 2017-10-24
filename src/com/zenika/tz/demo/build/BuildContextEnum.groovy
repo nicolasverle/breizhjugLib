@@ -7,10 +7,14 @@ enum BuildContextEnum {
     JS("jsNodes"),
     PYTHON("pythonNodes")
 
-    String nodes
+    private String nodes
 
     BuildContextEnum(String nodes) {
         this.nodes = nodes
+    }
+
+    public String getNodes() {
+        return this.nodes
     }
 
 }

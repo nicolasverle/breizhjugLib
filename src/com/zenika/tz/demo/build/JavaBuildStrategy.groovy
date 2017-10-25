@@ -3,7 +3,6 @@ package com.zenika.tz.demo.build
 import com.zenika.tz.demo.CommandWrapper
 import com.zenika.tz.demo.ResultFormatEnum
 import com.zenika.tz.demo.test.QualityRequirements
-import groovy.json.JsonOutput
 
 class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
 
@@ -20,20 +19,18 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
     }
 
     @Override
-    def analyze(QualityRequirements requirements = null) {
+    void analyze(QualityRequirements requirements = null) {
         withMaven(MAVEN_ALIAS) {
             sh("mvn sonar:sonar -Dsonar.analysis.mode=preview -Dsonar.report.export.path=report.json -Dsonar.issuesReport.console.enable=true -Dsonar.host.url=${SONAR_URL}")
             if(requirements) {
-                def json = parseFile("target/sonar/report.json", ResultFormatEnum.JSON)
-                echo("Will parse : ${JsonOutput.prettyPrint(json.toString())}")
+                requirements.eval(parseFile("target/sonar/report.json", ResultFormatEnum.JSON))
             }
         }
-        return null
     }
 
     @Override
-    def dockerize() {
-        return null
+    void createImage(String dockerfile) {
+        sh("docker buid - < ${dockerfile}")
     }
 
     @Override

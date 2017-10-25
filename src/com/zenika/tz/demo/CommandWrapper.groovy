@@ -37,6 +37,10 @@ class CommandWrapper implements Serializable {
         script.junit(path)
     }
 
+    String appVersion() {
+        return script.readMavenPom()?.version
+    }
+
     def cmd(String command, rtnFormat = ResultFormatEnum.TEXT) {
         String text = script.sh(returnStdout: true, script: command)
         switch (rtnFormat) {
@@ -70,13 +74,15 @@ class CommandWrapper implements Serializable {
         }
     }
 
-    private static class CommandResultFormatter {
+    def docker() {
+        return script.docker
+    }
 
+    private static class CommandResultFormatter {
         @NonCPS
         def toXML(String body) {
             return new XmlSlurper().parseText(body)
         }
-
     }
 
 }

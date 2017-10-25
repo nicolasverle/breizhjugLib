@@ -6,9 +6,9 @@ interface BuildStrategy {
 
     void build()
 
-    def analyze(QualityRequirements requirements)
+    void analyze(QualityRequirements requirements)
 
-    def dockerize()
+    void createImage(String dockerfile)
 
     String getNodesLabel()
 

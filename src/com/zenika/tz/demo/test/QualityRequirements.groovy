@@ -1,6 +1,8 @@
 package com.zenika.tz.demo.test
 
-final class QualityRequirements implements Serializable {
+import com.zenika.tz.demo.CommandWrapper
+
+final class QualityRequirements extends CommandWrapper {
 
     Integer maxCriticals
 
@@ -9,6 +11,21 @@ final class QualityRequirements implements Serializable {
     Double minCoverage
 
     private QualityRequirements() {}
+
+    void eval(report) {
+        if(maxCriticals) {
+            int criticals = report.issues.findAll { it.severity == "CRITICAL" }?.size()
+            if(criticals > maxCriticals) {
+                error("Got ${criticals} critical issue(s), maximum was set to ${maxCriticals}")
+            }
+        }
+        if(maxBlockings) {
+            int blockings = report.issues.findAll { it.severity == "CRITICAL" }?.size()
+            if(blockings > maxBlockings) {
+                error("Got ${blockings} blocking issue(s), maximum was set to ${maxBlockings}")
+            }
+        }
+    }
 
     static QualityRequirementsBuilder builder() {
         return new QualityRequirementsBuilder(new QualityRequirements())

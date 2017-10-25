@@ -12,7 +12,9 @@ def call(Closure body) {
 def java() {
     PipelineContextHolder.buildStrategy = new JavaBuildStrategy()
     node(PipelineContextHolder.buildStrategy.getNodesLabel()) {
-        checkout scm
-        PipelineContextHolder.buildStrategy.build()
+        stage("Building java sources") {
+            checkout scm
+            PipelineContextHolder.buildStrategy.build()
+        }
     }
 }

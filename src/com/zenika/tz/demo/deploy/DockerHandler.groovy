@@ -33,7 +33,7 @@ final class DockerHandler extends CommandWrapper {
         }
     }
 
-    boolean hasHealthCheckDefined() {
+    boolean hasHealthcheckDefined() {
         return sh("docker inspect -f {{json .State.Health }} ${appName()}")
     }
 

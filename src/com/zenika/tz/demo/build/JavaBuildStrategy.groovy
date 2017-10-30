@@ -30,7 +30,7 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
 
     @Override
     void createImage(String dockerfile) {
-        sh("docker buid - < ${dockerfile}")
+        sh("docker buid -f ${dockerfile}")
     }
 
     @Override

@@ -1,3 +1,4 @@
+import com.zenika.tz.demo.PipelineContextHolder
 import com.zenika.tz.demo.deploy.DockerHandler
 import groovy.transform.Field
 
@@ -16,11 +17,16 @@ def call(Map params, Closure body) {
     host = params.host
     port = params.port
 
-    if(body) {
-        body.resolveStrategy = Closure.DELEGATE_FIRST
-        body.delegate = this
-        body()
+    node(PipelineContextHolder.buildStrategy.getNodesLabel()) {
+        stage("Deploying application") {
+            if(body) {
+                body.resolveStrategy = Closure.DELEGATE_FIRST
+                body.delegate = this
+                body()
+            }
+        }
     }
+
 
 }
 

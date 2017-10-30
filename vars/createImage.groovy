@@ -12,6 +12,7 @@ def call(Map params) {
             error("Neither docker instructions nor Dockerfile path specified !")
         }
 
+        echo("commands: $cmds")
         stage("Building image") {
             PipelineContextHolder.buildStrategy.createImage(cmds)
         }

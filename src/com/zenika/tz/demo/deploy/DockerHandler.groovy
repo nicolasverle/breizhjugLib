@@ -36,15 +36,4 @@ final class DockerHandler extends CommandWrapper {
         }
     }
 
-    boolean hasHealthcheckDefined() {
-        return sh("docker inspect -f '{{json .State.Health }}' ${appName()}")
-    }
-
-    String waitForHealthiness() {
-        String status = "starting"
-        while(status == "starting") {
-            status = sh("docker inspect -f '{{json .State.Health.Status }}' ${appName()}")
-        }
-    }
-
 }

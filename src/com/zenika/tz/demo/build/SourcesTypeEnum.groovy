@@ -1,5 +1,5 @@
 package com.zenika.tz.demo.build
 
-enum BuildContextEnum {
+enum SourcesTypeEnum {
     JAVA, PHP, JS, PYTHON
 }

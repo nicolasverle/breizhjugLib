@@ -36,6 +36,11 @@ def dockerd(Map params) {
         ports.addAll(params.ports)
     }
 
+    String opts = "-m 512m"
+    if(params.opts) {
+        opts += params.opts
+    }
+
     new DockerHandler().deploy(host, params.image, params.tag,
-            ports, params.volumes, params.opts)
+            ports, params.volumes, opts)
 }

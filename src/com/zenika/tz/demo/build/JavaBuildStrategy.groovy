@@ -43,7 +43,7 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
     }
 
     @Override
-    BuildContextEnum getProjectType() {
-        return BuildContextEnum.JAVA
+    SourcesTypeEnum getProjectType() {
+        return SourcesTypeEnum.JAVA
     }
 }

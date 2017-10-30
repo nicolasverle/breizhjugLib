@@ -8,4 +8,6 @@ final class PipelineContextHolder {
 
     static BuildStrategy buildStrategy
 
+    static String dockerRegistry
+
 }

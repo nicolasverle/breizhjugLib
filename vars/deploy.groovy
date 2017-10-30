@@ -1,3 +1,4 @@
+import com.zenika.tz.demo.deploy.DockerHandler
 import groovy.transform.Field
 
 @Field String host
@@ -24,5 +25,11 @@ def call(Map params, Closure body) {
 }
 
 def dockerd(Map params) {
+    def ports = [[host: port, container: 8080]]
+    if(params.ports) {
+        ports.addAll(params.ports)
+    }
 
+    DockerHandler.deploy(host, params.image, params.tag,
+            ports, params.volumes, params.opts)
 }

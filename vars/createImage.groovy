@@ -1,13 +1,15 @@
 import com.zenika.tz.demo.PipelineContextHolder
 
-def call(String dockerFile) {
+def call(Map params) {
 
     node(PipelineContextHolder.buildStrategy.getNodesLabel()) {
         String cmds = null
-        if(dockerFile instanceof GString) {
+        if(params.script) {
             cmds = instructions
+        } else if(params.file) {
+            cmds = readFile(file: params.file)
         } else {
-            cmds = readFile(file: dockerFile)
+            error("Neither docker instructions nor Dockerfile path specified !")
         }
 
         stage("Building image") {

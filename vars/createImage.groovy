@@ -5,7 +5,7 @@ def call(Map params) {
     node(PipelineContextHolder.buildStrategy.getNodesLabel()) {
         String cmds = null
         if(params.script) {
-            cmds = instructions
+            cmds = params.script
         } else if(params.file) {
             cmds = readFile(file: params.file)
         } else {

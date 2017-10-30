@@ -4,8 +4,7 @@ import com.zenika.tz.demo.CommandWrapper
 
 final class DockerHandler extends CommandWrapper {
 
-    void deploy(String host, String image = appName(), String tag = appVersion(),
-                       List<Map<Integer, Integer>> ports = null, List<Map<String, String>> volumes = null, String opts = null) {
+    void deploy(String host, String image = null, String tag = null, List<Map<Integer, Integer>> ports = null, List<Map<String, String>> volumes = null, String opts = "") {
 
         if(!image) {
             image = appName()

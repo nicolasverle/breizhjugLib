@@ -14,7 +14,7 @@ final class DockerHandler extends CommandWrapper {
         }
 
         if(getRegistry()) {
-            image =+ getRegistry() + "/"
+            image = getRegistry() + "/" + image
         }
 
         if(host != "localhost") {

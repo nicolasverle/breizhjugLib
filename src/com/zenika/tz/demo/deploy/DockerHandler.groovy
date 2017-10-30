@@ -6,8 +6,10 @@ final class DockerHandler extends CommandWrapper {
 
     String host = "localhost"
 
-    DockerHandler(String host) {
-        this.host = host
+    DockerHandler(String host = null) {
+        if(host) {
+            this.host = host
+        }
     }
 
     void deploy(String image = null, String tag = null, List<Map<Integer, Integer>> ports = null, List<Map<String, String>> volumes = null, String opts = "") {
@@ -35,13 +37,13 @@ final class DockerHandler extends CommandWrapper {
     }
 
     boolean hasHealthcheckDefined() {
-        return sh("docker inspect -f {{json .State.Health }} ${appName()}")
+        return sh("docker inspect -f '{{json .State.Health }}' ${appName()}")
     }
 
     String waitForHealthiness() {
         String status = "starting"
         while(status == "starting") {
-            status = sh("docker inspect -f {{json .State.Health.Status }} ${appName()}")
+            status = sh("docker inspect -f '{{json .State.Health.Status }}' ${appName()}")
         }
     }
 

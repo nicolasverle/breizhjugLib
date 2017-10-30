@@ -13,6 +13,10 @@ final class DockerHandler extends CommandWrapper {
             image = appVersion()
         }
 
+        if(getRegistry()) {
+            image =+ getRegistry() + "/"
+        }
+
         if(host != "localhost") {
             docker().withServer("tcp://${host}:2376", host) {
                 sh("docker run --name ${appVersion()} -d ${ports?.collect{ "-p " + it.host + ":" + it.container }.join(" ")} ${volumes?.collect{ "-v " + it.host + ":" + it.container }.join(" ")} ${opts} ${image}:${tag}")

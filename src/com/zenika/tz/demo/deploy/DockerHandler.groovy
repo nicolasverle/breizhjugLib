@@ -4,7 +4,13 @@ import com.zenika.tz.demo.CommandWrapper
 
 final class DockerHandler extends CommandWrapper {
 
-    void deploy(String host, String image = null, String tag = null, List<Map<Integer, Integer>> ports = null, List<Map<String, String>> volumes = null, String opts = "") {
+    String host = "localhost"
+
+    DockerHandler(String host) {
+        this.host = host
+    }
+
+    void deploy(String image = null, String tag = null, List<Map<Integer, Integer>> ports = null, List<Map<String, String>> volumes = null, String opts = "") {
 
         if(!image) {
             image = appName()
@@ -24,6 +30,17 @@ final class DockerHandler extends CommandWrapper {
                 }
                 sh("docker run --name ${appName()} -d ${ports?.collect{ "-p " + it.host + ":" + it.container }.join(" ")} ${volumes?.collect{ "-v " + it.host + ":" + it.container }.join(" ")} ${opts} ${image}:${tag}")
             }
+        }
+    }
+
+    boolean hasHealthCheckDefined() {
+        return sh("docker inspect -f {{json .State.Health }} ${appName()}")
+    }
+
+    String waitForHealthiness() {
+        String status = "starting"
+        while(status == "starting") {
+            status = sh("docker inspect -f {{json .State.Health.Status }} ${appName()}")
         }
     }
 

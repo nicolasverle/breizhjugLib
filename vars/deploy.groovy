@@ -2,6 +2,8 @@ import com.zenika.tz.demo.PipelineContextHolder
 import com.zenika.tz.demo.deploy.DockerHandler
 import groovy.transform.Field
 
+import javax.print.Doc
+
 @Field String host
 @Field int port
 
@@ -41,6 +43,14 @@ def dockerd(Map params) {
         opts += params.opts
     }
 
-    new DockerHandler().deploy(host, params.image, params.tag,
+    DockerHandler handler = new DockerHandler(host)
+    handler.deploy(params.image, params.tag,
             ports, params.volumes, opts)
+
+    if(handler.hasHealthcheckDefined()) {
+        String status = handler.waitForHealthiness()
+        if(status == "unhealthy") {
+            error("Container is unhealthy !")
+        }
+    }
 }

@@ -12,4 +12,6 @@ interface BuildStrategy {
 
     String getNodesLabel()
 
+    BuildContextEnum getProjectType()
+
 }

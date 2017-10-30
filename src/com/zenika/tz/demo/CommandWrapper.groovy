@@ -1,6 +1,7 @@
 package com.zenika.tz.demo
 
 import com.cloudbees.groovy.cps.NonCPS
+import com.zenika.tz.demo.build.BuildContextEnum
 
 class CommandWrapper implements Serializable {
 
@@ -38,7 +39,23 @@ class CommandWrapper implements Serializable {
     }
 
     String appVersion() {
-        return script.readMavenPom()?.version
+        switch (PipelineContextHolder.buildStrategy.getProjectType()) {
+            case BuildContextEnum.JAVA :
+                return script.readMavenPom()?.version
+                break
+            default:
+                return null
+        }
+    }
+
+    String appName() {
+        switch (PipelineContextHolder.buildStrategy.getProjectType()) {
+            case BuildContextEnum.JAVA :
+                return script.readMavenPom()?.artifactId
+                break
+            default:
+                return null
+        }
     }
 
     def cmd(String command, rtnFormat = ResultFormatEnum.TEXT) {

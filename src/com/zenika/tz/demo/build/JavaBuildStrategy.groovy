@@ -30,11 +30,16 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
 
     @Override
     void createImage(String dockerfile) {
-        sh("docker build -f ${dockerfile} .")
+        sh("docker build -f ${dockerfile} -t ${appName()}:${appVersion()} .")
     }
 
     @Override
     String getNodesLabel() {
         return "master"
+    }
+
+    @Override
+    BuildContextEnum getProjectType() {
+        return BuildContextEnum.JAVA
     }
 }

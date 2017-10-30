@@ -30,6 +30,6 @@ def dockerd(Map params) {
         ports.addAll(params.ports)
     }
 
-    DockerHandler.deploy(host, params.image, params.tag,
+    new DockerHandler().deploy(host, params.image, params.tag,
             ports, params.volumes, params.opts)
 }

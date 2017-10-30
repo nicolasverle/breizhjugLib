@@ -4,7 +4,7 @@ import com.zenika.tz.demo.CommandWrapper
 
 final class DockerHandler extends CommandWrapper {
 
-    static void deploy(String host, String image, String tag = "latest",
+    void deploy(String host, String image = appName(), String tag = appVersion(),
                        List<Map<Integer, Integer>> ports = null, List<Map<String, String>> volumes = null, String opts = null) {
         if(host != "localhost") {
             docker().withServer("tcp://${host}:2376", host) {

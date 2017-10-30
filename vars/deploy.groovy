@@ -44,6 +44,7 @@ def dockerd(Map params) {
     }
 
     DockerHandler handler = new DockerHandler(host)
+
     handler.deploy(params.image, params.tag,
             ports, params.volumes, opts)
 

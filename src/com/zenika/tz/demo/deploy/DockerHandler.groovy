@@ -10,7 +10,7 @@ final class DockerHandler extends CommandWrapper {
             image = appName()
         }
         if(!tag) {
-            image = appVersion()
+            tag = appVersion()
         }
 
         if(getRegistry()) {

@@ -10,4 +10,6 @@ final class PipelineContextHolder {
 
     static String dockerRegistry
 
+    static boolean verbose
+
 }

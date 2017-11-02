@@ -13,7 +13,11 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
     @Override
     void build() {
         withMaven(MAVEN_ALIAS) {
-            sh("mvn package")
+            def cmd = "mvn package"
+            if(isDebug()) {
+                cmd += " -X"
+            }
+            sh(cmd)
             junit("target/surefire-reports/*.xml")
         }
     }
@@ -21,7 +25,11 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
     @Override
     void analyze(QualityRequirements requirements = null) {
         withMaven(MAVEN_ALIAS) {
-            sh("mvn sonar:sonar -Dsonar.analysis.mode=preview -Dsonar.report.export.path=report.json -Dsonar.issuesReport.console.enable=true -Dsonar.host.url=${SONAR_URL}")
+            def cmd = "mvn sonar:sonar -Dsonar.analysis.mode=preview -Dsonar.report.export.path=report.json -Dsonar.issuesReport.console.enable=true -Dsonar.host.url=${SONAR_URL}"
+            if(isDebug()) {
+                cmd += " -X"
+            }
+            sh(cmd)
             if(requirements) {
                 requirements.eval(parseFile("target/sonar/report.json", ResultFormatEnum.JSON))
             }

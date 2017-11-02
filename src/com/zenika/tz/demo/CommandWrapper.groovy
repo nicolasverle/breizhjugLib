@@ -62,6 +62,10 @@ class CommandWrapper implements Serializable {
         return PipelineContextHolder.dockerRegistry
     }
 
+    boolean isDebug() {
+        return PipelineContextHolder.verbose
+    }
+
     def cmd(String command, rtnFormat = ResultFormatEnum.TEXT) {
         String text = script.sh(returnStdout: true, script: command)
         switch (rtnFormat) {

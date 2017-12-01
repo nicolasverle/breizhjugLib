@@ -11,7 +11,7 @@ def call(Map params, Closure body) {
     if(body) {
         body.resolveStrategy = Closure.DELEGATE_FIRST
         body.delegate = this
-        containers.addAll(body())
+        containers.add(body())
     }
 
     pod.setContainers(containers)
@@ -20,6 +20,7 @@ def call(Map params, Closure body) {
 }
 
 Container container(Map params) {
+    echo("Init container with ${params.dump()}")
     Container container = new Container()
     container.setName(params.name)
     container.setImage(params.image)

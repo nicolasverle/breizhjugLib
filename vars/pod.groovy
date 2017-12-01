@@ -11,7 +11,7 @@ def call(Map params, Closure body) {
     if(body) {
         body.resolveStrategy = Closure.DELEGATE_FIRST
         body.delegate = this
-        containers.add(body())
+        containers.addAll(body())
     }
 
     pod.setContainers(containers)
@@ -26,4 +26,5 @@ Container container(Map params) {
     container.setImage(params.image)
     container.setImagePullPolicy(params.imagePullPolicy)
     container.setContainerPort(params.containerPort)
+    return container
 }

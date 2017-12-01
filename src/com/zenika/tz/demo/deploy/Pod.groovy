@@ -36,7 +36,7 @@ class Pod extends CommandWrapper implements KubernetesResource {
         }
 
         if(imagePullSecrets) {
-            pod.spec.imagePullSecrets = imagePullSecrets
+            pod.spec.imagePullSecrets = imagePullSecrets.each { [ 'name': it ] }
         }
 
         writeYaml("pod.yaml", pod)

@@ -30,7 +30,7 @@ class Pod extends CommandWrapper implements KubernetesResource {
                  'name': container.getName(),
                  'image': container.getImage(),
                  'ports': [
-                     'containerPort': [container.getContainerPort()]
+                     [ 'containerPort': container.getContainerPort() ]
                  ]
             ])
         }

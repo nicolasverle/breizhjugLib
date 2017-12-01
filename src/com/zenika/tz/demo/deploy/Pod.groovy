@@ -15,28 +15,28 @@ class Pod extends CommandWrapper implements KubernetesResource {
                 'api': 'v1',
                 'kind': 'Pod',
                 'metadata': [
-                        'name': name,
-                        'labels': [
-                                'app': name
-                        ]
+                    'name': name,
+                    'labels': [
+                        'app': name
+                    ]
                 ],
                 'spec': [
-                        'containers': []
+                    'containers': []
                 ]
         ]
 
         for(Container container : containers) {
-            pod.spec.containers.add([[
+            pod.spec.containers.add([
                  'name': container.getName(),
                  'image': container.getImage(),
                  'ports': [
                      'containerPort': container.getContainerPort()
                  ]
-            ]])
+            ])
         }
 
         if(imagePullSecrets) {
-            pod.spec.imagePullSecrets = imagePullSecrets.toArray()
+            pod.spec.imagePullSecrets = imagePullSecrets
         }
 
         writeYaml("pod.yaml", pod)

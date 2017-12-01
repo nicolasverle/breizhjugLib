@@ -1,6 +1,6 @@
 package com.zenika.tz.demo.deploy
 
-interface DeployStrategy {
+interface Deployer {
 
     void deploy()
 

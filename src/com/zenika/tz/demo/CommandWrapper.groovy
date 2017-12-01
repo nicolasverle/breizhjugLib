@@ -83,6 +83,10 @@ class CommandWrapper implements Serializable {
         }
     }
 
+    def writeYaml(String fileName, Object content) {
+        script.writeYaml(file: fileName, data: content)
+    }
+
     def parseFile(String name, ResultFormatEnum format = ResultFormatEnum.TEXT) {
         switch (format) {
             case ResultFormatEnum.JSON:

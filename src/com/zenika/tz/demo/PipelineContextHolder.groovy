@@ -12,4 +12,8 @@ final class PipelineContextHolder {
 
     static boolean verbose
 
+    void init(def pipelineContext) {
+        this.script = pipelineContext
+    }
+
 }

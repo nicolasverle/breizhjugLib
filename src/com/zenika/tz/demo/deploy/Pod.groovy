@@ -12,7 +12,7 @@ class Pod extends CommandWrapper implements KubernetesResource {
 
     void configure() {
         def pod = [
-                'api': 'v1',
+                'apiVersion': 'v1',
                 'kind': 'Pod',
                 'metadata': [
                     'name': name,
@@ -30,7 +30,7 @@ class Pod extends CommandWrapper implements KubernetesResource {
                  'name': container.getName(),
                  'image': container.getImage(),
                  'ports': [
-                     'containerPort': container.getContainerPort()
+                     'containerPort': [container.getContainerPort()]
                  ]
             ])
         }

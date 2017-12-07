@@ -9,7 +9,7 @@ KubernetesResource call(Map params, Closure body) {
     service.name = params.name
     service.type = ServiceType.valueOf(params.type)
     service.port = params.port
-    service.ancestor = body()
+    body()
 
     service.configure()
 

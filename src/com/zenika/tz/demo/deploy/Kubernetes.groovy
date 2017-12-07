@@ -32,7 +32,7 @@ class Kubernetes extends CommandWrapper {
 
     void addResource(KubernetesResource resource) {
         if(!manifests) {
-            manifests = new LinkedList<>()
+            manifests = []
         }
         manifests.add(resource)
     }

@@ -6,7 +6,7 @@ class Kubernetes extends CommandWrapper {
 
     String namespace
 
-    //List<KubernetesResource> manifests
+    List<KubernetesResource> manifests
 
     def config
 
@@ -30,13 +30,12 @@ class Kubernetes extends CommandWrapper {
         }
     }
 
-    /*
     void addResource(KubernetesResource resource) {
         if(!manifests) {
             manifests = []
         }
         manifests.add(resource)
     }
-    */
+
 
 }

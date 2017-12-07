@@ -10,17 +10,17 @@ class Kubernetes extends CommandWrapper {
 
     def config
 
-    Kubernetes(String namespace) {
+    Kubernetes(String ns) {
         echo("Kubernetes constructor...")
-        this.namespace = namespace
+        namespace = ns
     }
 
     void initContext() {
         config = yaml {
             cmd("kubectl config current-context")
         }
-        if(config.namespace != this.namespace) {
-            sh("kubectl config set-context \$(kubectl config current-context) --namespace=${this.namespace}")
+        if(config.namespace != namespace) {
+            sh("kubectl config set-context \$(kubectl config current-context) --namespace=${namespace}")
         }
     }
 

@@ -13,10 +13,9 @@ class Kubernetes extends CommandWrapper {
     Kubernetes(String namespace = "default") {
         echo("Kubernetes constructor...")
         this.namespace = namespace
-        initContext()
     }
 
-    private void initContext() {
+    void initContext() {
         config = yaml {
             cmd("kubectl config current-context")
         }

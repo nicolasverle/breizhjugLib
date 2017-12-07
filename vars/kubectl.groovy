@@ -3,9 +3,9 @@ import com.zenika.tz.demo.deploy.Kubernetes
 
 def call(Map params, Closure body) {
 
-    echo("instanciate Kubernetes")
-    PipelineContextHolder.kubernetes = new Kubernetes(params.namespace)
-    echo("calling body()")
+    Kubernetes kubernetes = new Kubernetes(params.namespace)
+    PipelineContextHolder.kubernetes = kubernetes
+    kubernetes.initContext()
     body()
     PipelineContextHolder.kubernetes.apply()
 }

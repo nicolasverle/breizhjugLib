@@ -22,12 +22,10 @@ def call(Map params, Closure body) {
 
 void rollingUpdate(Map params) {
     deploy.strategy = [
-        'strategy': [
-            'type': 'RollingUpdate',
-            'rollingUpdate': [
-                'maxUnavailable': params.maxUnavailable,
-                'maxSurge': params.maxSurge
-            ]
+        'type': 'RollingUpdate',
+        'rollingUpdate': [
+            'maxUnavailable': params.maxUnavailable,
+            'maxSurge': params.maxSurge
         ]
     ]
 }

@@ -31,8 +31,8 @@ class Deployment extends CommandWrapper implements KubernetesResource {
                     ]
                 ],
                 "template": [
-                    "metadata": [ pod.metadata ],
-                    "spec": [ pod.spec ]
+                    "metadata": pod.metadata,
+                    "spec": pod.spec
                 ]
             ]
         ]

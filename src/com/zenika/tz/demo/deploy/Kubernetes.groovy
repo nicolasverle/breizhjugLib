@@ -16,6 +16,7 @@ class Kubernetes extends CommandWrapper {
     }
 
     private void initContext() {
+        echo("context init")
         config = yaml {
             cmd("kubectl config current-context")
         }

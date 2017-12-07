@@ -28,11 +28,9 @@ class Ingress extends CommandWrapper implements KubernetesResource {
                     'host': host,
                     'http': [
                         'paths': [[
-                            'path': [
-                                'backend': [
-                                    'serviceName': PipelineContextHolder.deployContext.appName,
-                                    'servicePort': PipelineContextHolder.deployContext.appPort
-                                ]
+                            'backend': [
+                              'serviceName': PipelineContextHolder.deployContext.appName,
+                              'servicePort': PipelineContextHolder.deployContext.appPort
                             ]
                         ]]
                     ]

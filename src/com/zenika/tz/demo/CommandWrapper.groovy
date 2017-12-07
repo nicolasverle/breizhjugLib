@@ -10,7 +10,6 @@ class CommandWrapper implements Serializable {
     def formatter = new CommandResultFormatter()
 
     CommandWrapper() {
-        echo("command wrapper constructor")
         if(!PipelineContextHolder.script) {
             throw new ExceptionInInitializerError("No context found for this build.")
         }

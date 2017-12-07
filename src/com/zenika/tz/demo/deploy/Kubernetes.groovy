@@ -9,11 +9,11 @@ class Kubernetes {
     def config
 
     Kubernetes() {
-        echo("Kubernetes constructor without args...")
+        //echo("Kubernetes constructor without args...")
     }
 
     Kubernetes(String ns) {
-        echo("Kubernetes constructor...")
+        //echo("Kubernetes constructor...")
         namespace = ns
     }
 

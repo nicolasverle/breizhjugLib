@@ -1,9 +1,9 @@
 import com.zenika.tz.demo.PipelineContextHolder
 import com.zenika.tz.demo.deploy.Kubernetes
 
-def call(String namespace, Closure body) {
+def call(Map params, Closure body) {
 
-    PipelineContextHolder.kubernetes = new Kubernetes(namespace)
+    PipelineContextHolder.kubernetes = new Kubernetes(params.namespace)
     body()
     PipelineContextHolder.kubernetes.apply()
 }

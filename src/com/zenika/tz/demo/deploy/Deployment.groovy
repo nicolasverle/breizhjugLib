@@ -2,36 +2,48 @@ package com.zenika.tz.demo.deploy
 
 import com.zenika.tz.demo.CommandWrapper
 
-class ReplicaSet extends CommandWrapper implements KubernetesResource {
+class Deployment extends CommandWrapper implements KubernetesResource {
 
     int replicas
 
     KubernetesResource pod
 
-    ReplicaSet(int number) {
+    def strategy
+
+    Deployment(int number) {
         replicas = number
     }
 
     def configure() {
-        def rs = [
+        def pod = yaml(Pod.manifest())
+
+        def deployment = [
             "apiVersion": "apps/v1beta2",
-            "kind": "ReplicaSet",
+            "kind": "Deployment",
             "metadata": [
-                "name": pod.name(),
+                "name": pod.metadata.name,
             ],
             "spec": [
                 "replicas": replicas,
                 "selector": [
                     "matchLabels": [
-                        "app": pod.name()
+                        "app": pod.metadata.name
                     ]
+                ],
+                "template": [
+                    "metadata": [ pod.metadata ],
+                    "spec": [ pod.spec ]
                 ]
             ]
         ]
 
-        writeYaml(manifest(), rs)
+        if(strategy) {
+            deployment.spec.strategy = strategy
+        }
 
-        return rs
+        writeYaml(manifest(), deployment)
+
+        return deployment
     }
 
     void deploy() {
@@ -51,7 +63,7 @@ class ReplicaSet extends CommandWrapper implements KubernetesResource {
         return pod.name()
     }
 
-    String manifest() {
-        return "replicaSet.yaml"
+    static String manifest() {
+        return "deployment.yaml"
     }
 }

@@ -10,9 +10,9 @@ class Service extends CommandWrapper implements KubernetesResource {
 
     int port
 
-    KubernetesResource ancestor
-
     def configure() {
+        def deployment = yaml("deployment.yaml")
+
         def service = [
             'apiVersion': 'v1',
             'kind': 'Service',
@@ -21,7 +21,7 @@ class Service extends CommandWrapper implements KubernetesResource {
             ],
             'spec': [
                 'selector': [
-                    'app': ancestor.name()
+                    'app': deployment.metadata.name
                 ],
                 'ports': [[
                     'protocol': "TCP",
@@ -51,7 +51,7 @@ class Service extends CommandWrapper implements KubernetesResource {
         return name
     }
 
-    String manifest() {
+    static String manifest() {
         return "service.yaml"
     }
 }

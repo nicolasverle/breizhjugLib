@@ -60,7 +60,7 @@ class Pod extends CommandWrapper implements KubernetesResource {
         return name
     }
 
-    String manifest() {
+    static String manifest() {
         return "pod.yaml"
     }
 }

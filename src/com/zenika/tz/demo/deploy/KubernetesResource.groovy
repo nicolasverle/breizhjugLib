@@ -10,6 +10,4 @@ interface KubernetesResource extends Serializable {
 
     String name()
 
-    String manifest()
-
 }

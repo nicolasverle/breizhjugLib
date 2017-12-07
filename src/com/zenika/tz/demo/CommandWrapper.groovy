@@ -71,6 +71,10 @@ class CommandWrapper implements Serializable {
         return script.readYaml(text: content)
     }
 
+    def yaml(String path) {
+        return script.readYaml(file: path)
+    }
+
     def cmd(String command, rtnFormat = ResultFormatEnum.TEXT) {
         String text = script.sh(returnStdout: true, script: command)
         switch (rtnFormat) {

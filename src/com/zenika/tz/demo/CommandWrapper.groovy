@@ -11,10 +11,10 @@ class CommandWrapper implements Serializable {
 
     CommandWrapper() {
         echo("command wrapper constructor")
-        if(!PipelineContextHolder.script) {
+        /*if(!PipelineContextHolder.script) {
             throw new ExceptionInInitializerError("No context found for this build.")
         }
-        script = PipelineContextHolder.script
+        script = PipelineContextHolder.script*/
     }
 
     void echo(String message) {

@@ -12,7 +12,6 @@ class Kubernetes extends CommandWrapper {
 
     Kubernetes(String namespace = "default") {
         this.namespace = namespace
-        echo("context init")
         initContext()
     }
 

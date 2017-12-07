@@ -66,6 +66,10 @@ class CommandWrapper implements Serializable {
         return PipelineContextHolder.verbose
     }
 
+    def yaml(Closure body) {
+        return script.readYaml(text: body())
+    }
+
     def cmd(String command, rtnFormat = ResultFormatEnum.TEXT) {
         String text = script.sh(returnStdout: true, script: command)
         switch (rtnFormat) {

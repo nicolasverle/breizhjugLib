@@ -2,8 +2,14 @@ package com.zenika.tz.demo.deploy
 
 interface KubernetesResource {
 
-    void configure()
+    def configure()
 
     void deploy()
+
+    void rollback()
+
+    String name()
+
+    String manifest()
 
 }

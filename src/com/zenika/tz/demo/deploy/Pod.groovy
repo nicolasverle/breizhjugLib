@@ -10,7 +10,7 @@ class Pod extends CommandWrapper implements KubernetesResource {
 
     List imagePullSecrets
 
-    void configure() {
+    def configure() {
         def pod = [
                 'apiVersion': 'v1',
                 'kind': 'Pod',
@@ -43,12 +43,24 @@ class Pod extends CommandWrapper implements KubernetesResource {
             pod.spec.imagePullSecrets = secrets
         }
 
-        List test = [pod, pod]
+        writeYaml(manifest(), pod)
 
-        writeYaml("pod.yaml", test)
+        return pod
     }
 
     void deploy() {
-        sh("kubectl apply -f pod.yaml")
+        sh("kubectl apply -f ${manifest()}")
+    }
+
+    void rollback() {
+        sh("kubectl delete -f ${manifest()}")
+    }
+
+    String name() {
+        return name
+    }
+
+    String manifest() {
+        return "pod.yaml"
     }
 }

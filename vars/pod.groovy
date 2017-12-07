@@ -1,22 +1,32 @@
+import com.zenika.tz.demo.PipelineContextHolder
 import com.zenika.tz.demo.deploy.Container
+import com.zenika.tz.demo.deploy.KubernetesResource
 import com.zenika.tz.demo.deploy.Pod
 
-def call(Map params, Closure body) {
+KubernetesResource call(Map params, Closure body) {
 
     Pod pod = new Pod()
     pod.setName(params.name)
     pod.setImagePullSecrets(params.imagePullSecrets)
 
-    List<Container> containers = []
-    if(body) {
-        body.resolveStrategy = Closure.DELEGATE_FIRST
-        body.delegate = this
-        containers.addAll(body())
+    try {
+        List<Container> containers = []
+        if(body) {
+            body.resolveStrategy = Closure.DELEGATE_FIRST
+            body.delegate = this
+            containers.addAll(body())
+        }
+
+        pod.setContainers(containers)
+        pod.configure()
+    } catch (err) {
+        error(err.getMessage())
     }
 
-    pod.setContainers(containers)
+    PipelineContextHolder.kubernetes.addResource(pod)
 
-    pod.configure()
+    return pod
+
 }
 
 Container container(Map params) {

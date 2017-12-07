@@ -11,10 +11,10 @@ class CommandWrapper implements Serializable {
 
     CommandWrapper() {
         echo("command wrapper constructor")
-        /*if(!PipelineContextHolder.script) {
+        if(!PipelineContextHolder.script) {
             throw new ExceptionInInitializerError("No context found for this build.")
         }
-        script = PipelineContextHolder.script*/
+        script = PipelineContextHolder.script
     }
 
     void echo(String message) {
@@ -89,9 +89,7 @@ class CommandWrapper implements Serializable {
         }
     }
 
-    def writeYaml(String fileName, Object content) {
-        script.writeYaml(file: fileName, data: content)
-    }
+
 
     def parseFile(String name, ResultFormatEnum format = ResultFormatEnum.TEXT) {
         switch (format) {

@@ -3,7 +3,7 @@ import com.zenika.tz.demo.PipelineContextHolder
 def call(Map params, Closure body) {
 
     PipelineContextHolder.deployContext.appName = params.appName
-    PipelineContextHolder.deployContext.port = params.appPort
+    PipelineContextHolder.deployContext.appPort = params.appPort
 
     node("master") {
         stage("Deploying application") {

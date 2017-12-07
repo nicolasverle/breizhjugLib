@@ -8,8 +8,8 @@ def call(Map params, Closure body) {
         Kubernetes kubernetes = new Kubernetes(params.namespace)
         PipelineContextHolder.kubernetes = kubernetes
         kubernetes.initContext()
-        //body()
-        //PipelineContextHolder.kubernetes.apply()
+        body()
+        PipelineContextHolder.kubernetes.apply()
     } catch (err) {
         error(err.dump())
     }

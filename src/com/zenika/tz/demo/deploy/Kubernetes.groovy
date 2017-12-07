@@ -16,9 +16,8 @@ class Kubernetes extends CommandWrapper {
 
     void initContext() {
         config = yaml {
-            cmd("kubectl config current-context")
+            cmd("kubectl config view")
         }
-        echo(config.dump())
         if(config.namespace != namespace) {
             sh("kubectl config set-context \$(kubectl config current-context) --namespace=${namespace}")
         }

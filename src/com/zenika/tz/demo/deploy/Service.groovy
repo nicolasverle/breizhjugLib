@@ -10,6 +10,8 @@ class Service extends CommandWrapper implements KubernetesResource {
 
     int port
 
+    int targetPort
+
     def configure() {
         def deployment = yaml("deployment.yaml")
 
@@ -30,6 +32,11 @@ class Service extends CommandWrapper implements KubernetesResource {
                 'type': type.toString()
             ]
         ]
+
+        if(targetPort > 0) {
+            service.spec.ports[0].targetPort = targetPort
+        }
+
         writeYaml(manifest(), service)
         return service
     }

@@ -3,13 +3,17 @@ import com.zenika.tz.demo.deploy.KubernetesResource
 import com.zenika.tz.demo.deploy.Service
 import com.zenika.tz.demo.deploy.ServiceType
 
-KubernetesResource call(Map params, Closure body) {
+KubernetesResource call(Map params = null, Closure body) {
+
+    ServiceType serviceType
+    if(!params || !params.type) {
+        serviceType = ServiceType.ClusterIP
+    } else {
+        serviceType = ServiceType.valueOf(params.type)
+    }
 
     Service service = new Service()
-    service.name = params.name
-    service.type = ServiceType.valueOf(params.type)
-    service.port = params.port
-    service.targetPort = params.targetPort
+    service.type = serviceType
     body()
 
     service.configure()

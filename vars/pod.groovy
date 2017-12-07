@@ -32,9 +32,9 @@ KubernetesResource call(Map params, Closure body) {
 Container container(Map params) {
     echo("Init container with ${params.dump()}")
     Container container = new Container()
-    container.setName(params.name)
+    container.setName(PipelineContextHolder.deployContext.appName)
     container.setImage(params.image)
     container.setImagePullPolicy(params.imagePullPolicy)
-    container.setContainerPort(params.containerPort)
+    container.setContainerPort(PipelineContextHolder.deployContext.appPort)
     return container
 }

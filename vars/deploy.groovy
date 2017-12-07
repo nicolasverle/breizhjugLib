@@ -1,16 +1,10 @@
 import com.zenika.tz.demo.PipelineContextHolder
-import com.zenika.tz.demo.deploy.DockerHandler
 import groovy.transform.Field
-
-@Field String host
 
 def call(Map params, Closure body) {
 
-    if(!params.host) {
-        error("Host must be set when deploying")
-    }
-
-    host = params.host
+    PipelineContextHolder.deployContext.appName = params.appName
+    PipelineContextHolder.deployContext.port = params.appPort
 
     node(PipelineContextHolder.buildStrategy.getNodesLabel()) {
         stage("Deploying application") {
@@ -23,16 +17,4 @@ def call(Map params, Closure body) {
     }
 
 
-}
-
-def dockerd(Map params) {
-    String opts = "-m 512m"
-    if(params.opts) {
-        opts += params.opts
-    }
-
-    DockerHandler handler = new DockerHandler(host)
-
-    handler.deploy(params.image, params.tag,
-            params.ports, params.volumes, opts)
 }

@@ -15,6 +15,8 @@ final class PipelineContextHolder {
 
     static Kubernetes kubernetes
 
+    static Map deployContext = [:]
+
     static void init(pipelineContext) {
         script = pipelineContext
     }

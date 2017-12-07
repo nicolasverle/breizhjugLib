@@ -1,8 +1,11 @@
 package com.zenika.tz.demo.deploy
 
 import com.zenika.tz.demo.CommandWrapper
+import com.zenika.tz.demo.PipelineContextHolder
 
 class Deployment extends CommandWrapper implements KubernetesResource {
+
+    String name
 
     int replicas
 
@@ -12,6 +15,7 @@ class Deployment extends CommandWrapper implements KubernetesResource {
 
     Deployment(int number) {
         replicas = number
+        name = PipelineContextHolder.deployContext.appName
     }
 
     def configure() {
@@ -21,13 +25,13 @@ class Deployment extends CommandWrapper implements KubernetesResource {
             "apiVersion": "apps/v1beta2",
             "kind": "Deployment",
             "metadata": [
-                "name": pod.metadata.name,
+                "name": name,
             ],
             "spec": [
                 "replicas": replicas,
                 "selector": [
                     "matchLabels": [
-                        "app": pod.metadata.name
+                        "app": name
                     ]
                 ],
                 "template": [
@@ -57,10 +61,6 @@ class Deployment extends CommandWrapper implements KubernetesResource {
 
     void rollback() {
         sh("kubectl delete -f ${manifest()}")
-    }
-
-    String name() {
-        return pod.name()
     }
 
     static String manifest() {

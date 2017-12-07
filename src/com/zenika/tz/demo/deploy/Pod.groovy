@@ -1,6 +1,7 @@
 package com.zenika.tz.demo.deploy
 
 import com.zenika.tz.demo.CommandWrapper
+import com.zenika.tz.demo.PipelineContextHolder
 
 class Pod extends CommandWrapper implements KubernetesResource {
 
@@ -9,6 +10,10 @@ class Pod extends CommandWrapper implements KubernetesResource {
     List<Container> containers
 
     List imagePullSecrets
+
+    Pod() {
+        name = PipelineContextHolder.deployContext.appName
+    }
 
     def configure() {
         def pod = [

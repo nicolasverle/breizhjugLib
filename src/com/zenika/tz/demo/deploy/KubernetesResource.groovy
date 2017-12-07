@@ -8,6 +8,4 @@ interface KubernetesResource extends Serializable {
 
     void rollback()
 
-    String name()
-
 }

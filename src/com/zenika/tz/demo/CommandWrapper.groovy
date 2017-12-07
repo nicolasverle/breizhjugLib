@@ -10,6 +10,7 @@ class CommandWrapper implements Serializable {
     def formatter = new CommandResultFormatter()
 
     CommandWrapper() {
+        echo("command wrapper constructor")
         if(!PipelineContextHolder.script) {
             throw new ExceptionInInitializerError("No context found for this build.")
         }
@@ -67,7 +68,8 @@ class CommandWrapper implements Serializable {
     }
 
     def yaml(Closure body) {
-        return script.readYaml(text: body())
+        String content = body()
+        return script.readYaml(text: content)
     }
 
     def cmd(String command, rtnFormat = ResultFormatEnum.TEXT) {

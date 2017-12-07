@@ -1,6 +1,8 @@
 package com.zenika.tz.demo.deploy
 
-class Kubernetes {
+import com.zenika.tz.demo.CommandWrapper
+
+class Kubernetes extends CommandWrapper {
 
     String namespace
 
@@ -9,11 +11,11 @@ class Kubernetes {
     def config
 
     Kubernetes() {
-        //echo("Kubernetes constructor without args...")
+        echo("Kubernetes constructor without args...")
     }
 
     Kubernetes(String ns) {
-        //echo("Kubernetes constructor...")
+        echo("Kubernetes constructor...")
         namespace = ns
     }
 

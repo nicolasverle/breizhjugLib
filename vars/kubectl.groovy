@@ -5,7 +5,7 @@ def call(Map params, Closure body) {
 
     try {
         echo("Into kubectl with args ${params.dump()}")
-        Kubernetes kubernetes = new Kubernetes(params.namespace)
+        Kubernetes kubernetes = new Kubernetes()
         PipelineContextHolder.kubernetes = kubernetes
         //kubernetes.initContext()
         //body()

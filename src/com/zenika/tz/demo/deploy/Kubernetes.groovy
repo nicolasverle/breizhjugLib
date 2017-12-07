@@ -10,6 +10,10 @@ class Kubernetes extends CommandWrapper {
 
     def config
 
+    Kubernetes() {
+        echo("Kubernetes constructor without args...")
+    }
+
     Kubernetes(String ns) {
         echo("Kubernetes constructor...")
         namespace = ns

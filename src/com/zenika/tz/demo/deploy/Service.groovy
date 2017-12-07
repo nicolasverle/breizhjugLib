@@ -23,10 +23,10 @@ class Service extends CommandWrapper implements KubernetesResource {
                 'selector': [
                     'app': ancestor.name()
                 ],
-                'ports': [
+                'ports': [[
                     'protocol': "TCP",
                     'port': port
-                ],
+                ]],
                 'type': type.toString()
             ]
         ]

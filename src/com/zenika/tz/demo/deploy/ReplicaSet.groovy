@@ -14,7 +14,7 @@ class ReplicaSet extends CommandWrapper implements KubernetesResource {
 
     def configure() {
         def rs = [
-            "apiVersion": "apps/v1beta1",
+            "apiVersion": "apps/v1beta2",
             "kind": "ReplicaSet",
             "metadata": [
                 "name": pod.name(),

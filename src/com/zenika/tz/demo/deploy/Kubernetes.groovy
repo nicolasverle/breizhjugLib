@@ -15,6 +15,7 @@ class Kubernetes extends CommandWrapper {
         namespace = ns
     }
 
+    /*
     void initContext() {
         config = yaml {
             cmd("kubectl config current-context")
@@ -36,6 +37,6 @@ class Kubernetes extends CommandWrapper {
         }
         manifests.add(resource)
     }
-
+    */
 
 }

@@ -2,26 +2,26 @@ import com.zenika.tz.demo.PipelineContextHolder
 import com.zenika.tz.demo.deploy.Deployment
 import groovy.transform.Field
 
-@Field Deployment deployment
+@Field Deployment deploy
 
 def call(Map params, Closure body) {
 
     if(body) {
-        deployment = new Deployment(params.replicas)
+        deploy = new Deployment(params.replicas)
 
         body.resolveStrategy = Closure.DELEGATE_FIRST
         body.delegate = this
         body()
 
-        deployment.configure()
+        deploy.configure()
 
-        PipelineContextHolder.kubernetes.addResource(deployment)
+        PipelineContextHolder.kubernetes.addResource(deploy)
     }
 
 }
 
 void rollingUpdate(Map params) {
-    deployment.strategy = [
+    deploy.strategy = [
         'strategy': [
             'type': 'RollingUpdate',
             'rollingUpdate': [

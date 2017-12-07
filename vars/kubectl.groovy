@@ -4,7 +4,7 @@ import com.zenika.tz.demo.deploy.Kubernetes
 def call(Map params, Closure body) {
 
     try {
-        echo("Into kubectl with args ${params.dump()}")
+        echo("Deploying ${PipelineContextHolder.deployContext.appName} with port ${PipelineContextHolder.deployContext.appPort}")
         Kubernetes kubernetes = new Kubernetes(params.namespace)
         PipelineContextHolder.kubernetes = kubernetes
         kubernetes.initContext()

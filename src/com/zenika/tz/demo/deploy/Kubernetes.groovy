@@ -1,8 +1,6 @@
 package com.zenika.tz.demo.deploy
 
-import com.zenika.tz.demo.CommandWrapper
-
-class Kubernetes extends CommandWrapper {
+class Kubernetes {
 
     String namespace
 

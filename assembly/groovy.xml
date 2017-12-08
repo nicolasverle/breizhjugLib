@@ -9,14 +9,7 @@
         <fileSet>
             <directory>src/</directory>
             <includes>
-                <include>**/*.groovy</include>
                 <include>**/*.gdsl</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>vars/</directory>
-            <includes>
-                <include>*.groovy</include>
             </includes>
         </fileSet>
     </fileSets>

@@ -38,11 +38,11 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
 
     @Override
     void createImage(String dockerfile) {
+        String registry = (getRegistry() ? getRegistry() + "/": "")
+
         sh("docker build -f ${dockerfile} -t ${appName()}:${appVersion()} .")
-        if(getRegistry()) {
-            sh("docker tag ${appName()}:${appVersion()} ${getRegistry()}/${appName()}:${appVersion()}")
-            sh("docker push ${getRegistry()}/${appName()}:${appVersion()}")
-        }
+        sh("docker tag ${appName()}:${appVersion()} ${registry}${appName()}:${appVersion()}")
+        sh("docker push ${registry}${appName()}:${appVersion()}")
     }
 
     @Override

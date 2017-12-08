@@ -1,0 +1,67 @@
+package com.zenika.tz.demo
+
+def ctx = context(scope: scriptScope())
+contributor(ctx) {
+    method(name: "building", params: [body: 'groovy.lang.Closure'], doc: "Begin building flow")
+    method(name: "building", namedParams: [parameter(name: "verbose", type: 'java.lang.Boolean')], params: [body: 'groovy.lang.Closure'], doc: "Begin building flow")
+    method(name: "deploying", namedParams: [parameter(name: "verbose", type: 'java.lang.Boolean'), parameter(name: "appName", type: "java.lang.String"), parameter(name: "appPort", type: "java.lang.Integer")], params: [body: 'groovy.lang.Closure'], doc: "Begin deploying flow")
+    method(name: "deploying", params: [body: 'groovy.lang.Closure'], doc: "Begin deploying flow")
+}
+
+def buildingCtx = context(scope: closureScope())
+contributor(buildingCtx) {
+    def call = enclosingCall("building")
+    if(call) {
+        method(name: "java", doc: "Build java sources in workspace")
+        method(name: "createImage", namedParams: [parameter(name: "file", type: 'java.lang.String'), parameter(name: "script", type: 'groovy.lang.GString')], doc: "Build image from given Dockerfile path.")
+    }
+}
+
+def deployCtx = context(scope: closureScope())
+contributor(deployCtx) {
+    def call = enclosingCall("deploying")
+    if(call) {
+        method(name: "kubectl", namedParams: [parameter(name: "namespace", type: 'java.lang.String'), parameter(name: "manualValidation", type: 'java.lang.Boolean')], params: [body: 'groovy.lang.Closure'], doc: "Deploy in Kubernetes cluster")
+    }
+}
+
+def kubeCtx = context(scope: closureScope())
+contributor(kubeCtx) {
+    def call = enclosingCall("kubectl")
+    if(call) {
+        method(name: "ingress", params: [host: 'java.lang.String', body: 'groovy.lang.Closure'], doc: "Set ingress routing to service")
+    }
+}
+
+def ingressCtx = context(scope: closureScope())
+contributor(kubeCtx) {
+    def call = enclosingCall("ingress")
+    if(call) {
+        method(name: "service", params: [body: 'groovy.lang.Closure'], doc: "Set service for pod.")
+    }
+}
+
+def serviceCtx = context(scope: closureScope())
+contributor(kubeCtx) {
+    def call = enclosingCall("service")
+    if(call) {
+        method(name: "deployment", namedParams: [parameter(name: "replicas", type: 'java.lang.Integer')], params: [body: 'groovy.lang.Closure'], doc: "Wrap pod in deployment for replication")
+    }
+}
+
+def deploymentCtx = context(scope: closureScope())
+contributor(kubeCtx) {
+    def call = enclosingCall("deployment")
+    if(call) {
+        method(name: "rollingUpdate", namedParams: [parameter(name: "maxSurge", type: 'java.lang.Integer'), parameter(name: "maxUnavailable", type: 'java.lang.Integer')], doc: "Set rolling update policy")
+        method(name: "pod", namedParams: [parameter(name: "name", type: 'java.lang.String'), parameter(name: "imagePullSecrets", type: "java.util.List")], params: [body: 'groovy.lang.Closure'], doc: "Set pod resource")
+    }
+}
+
+def podCtx = context(scope: closureScope())
+contributor(kubeCtx) {
+    def call = enclosingCall("pod")
+    if(call) {
+        method(name: "container", namedParams: [parameter(name: "image", type: 'java.lang.String'), parameter(name: "imagePullPolicy", type: "java.lang.String")], doc: "Set containers for pod")
+    }
+}

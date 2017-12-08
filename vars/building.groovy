@@ -2,7 +2,7 @@ import com.zenika.tz.demo.PipelineContextHolder
 
 def call(Map params = null, Closure body) {
 
-    PipelineContextHolder.script = this
+    setContext()
 
     if(params) {
         if(params.verbose == true) {

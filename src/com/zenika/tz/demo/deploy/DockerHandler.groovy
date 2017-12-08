@@ -31,7 +31,7 @@ class DockerHandler extends CommandWrapper {
                     sh("docker rm -f ${appName()}")
                 }
                 sh("docker pull ${image}:${tag}")
-                sh("docker deploy --name ${appName()} -d ${ports?.collect{ "-p " + it.host + ":" + it.container }?.join(" ")} ${volumes?.collect{ "-v " + it.host + ":" + it.container }?.join(" ")} ${opts} ${image}:${tag}")
+                sh("docker deploying --name ${appName()} -d ${ports?.collect{ "-p " + it.host + ":" + it.container }?.join(" ")} ${volumes?.collect{ "-v " + it.host + ":" + it.container }?.join(" ")} ${opts} ${image}:${tag}")
             }
         }
     }

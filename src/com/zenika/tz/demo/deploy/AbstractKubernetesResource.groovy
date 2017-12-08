@@ -27,7 +27,7 @@ abstract class AbstractKubernetesResource extends CommandWrapper implements Kube
 
     @Override
     String toString() {
-        return cmd("cat ${manifest()}")
+        return sh("pygmentize -O style=fruity ${manifest()}")
     }
 
 }

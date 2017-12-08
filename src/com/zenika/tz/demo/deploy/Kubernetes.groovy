@@ -33,12 +33,9 @@ class Kubernetes extends CommandWrapper {
             resource.deploy(manualValidation)
         }
         if(manualValidation) {
-            if(confirm()) {
-                manualValidation = false
-                apply()
-            } else {
-                error("Build aborted by user.")
-            }
+            askForConfirmation()
+            manualValidation = false
+            apply()
         }
     }
 

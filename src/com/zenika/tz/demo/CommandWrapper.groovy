@@ -96,7 +96,7 @@ class CommandWrapper implements Serializable {
         script.writeYaml(file: fileName, data: content)
     }
 
-    boolean confirm() {
+    void askForConfirmation() {
         return script.input(id: "confirm-${getClass().hashCode()}", message: 'On saute du plongeoir ?')
     }
 

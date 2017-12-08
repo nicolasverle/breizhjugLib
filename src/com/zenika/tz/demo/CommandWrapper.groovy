@@ -76,7 +76,7 @@ class CommandWrapper implements Serializable {
     }
 
     def cmd(String command, rtnFormat = ResultFormatEnum.TEXT) {
-        String text = script.sh(returnStdout: true, script: command)
+        String text = script.sh(returnStdout: true, script: command)?.trim()
         switch (rtnFormat) {
             case ResultFormatEnum.JSON:
                 return formatter.toJSON(text)

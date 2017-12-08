@@ -27,6 +27,7 @@ abstract class AbstractKubernetesResource extends CommandWrapper implements Kube
 
     @Override
     String toString() {
+        echo("will print yaml...")
         return cmd("cat ${manifest()}")
     }
 

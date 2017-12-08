@@ -11,7 +11,7 @@ def call(Map params) {
         }
 
         stage("Building image") {
-            PipelineContextHolder.buildStrategy.createImage(dockerfile)
+            PipelineContextHolder.buildStrategy.createImage(dockerfile, null)
         }
 
     }

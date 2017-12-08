@@ -4,7 +4,7 @@ interface BuildStrategy {
 
     void build()
 
-    void createImage(String dockerfile)
+    void createImage(String dockerfile, String tag)
 
     String getNodesLabel()
 

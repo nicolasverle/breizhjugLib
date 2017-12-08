@@ -13,7 +13,7 @@ contributor(buildingCtx) {
     def call = enclosingCall("building")
     if(call) {
         method(name: "java", doc: "Build java sources in workspace")
-        method(name: "createImage", namedParams: [parameter(name: "file", type: 'java.lang.String'), parameter(name: "script", type: 'groovy.lang.GString')], doc: "Build image from given Dockerfile path.")
+        method(name: "createImage", namedParams: [parameter(name: "file", type: 'java.lang.String'), parameter(name: "script", type: 'groovy.lang.GString'), parameter(name: "tag", type: 'java.lang.String')], doc: "Build image from given Dockerfile path.")
     }
 }
 

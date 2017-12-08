@@ -97,10 +97,7 @@ class CommandWrapper implements Serializable {
     }
 
     boolean confirm() {
-        return userInput = script.input(
-                id: "confirm-${getClass().hashCode()}", message: 'On saute du plongeoir ?', parameters: [
-                [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Oui ?']
-        ])
+        return script.input(id: "confirm-${getClass().hashCode()}", message: 'On saute du plongeoir ?')
     }
 
     def parseFile(String name, ResultFormatEnum format = ResultFormatEnum.TEXT) {

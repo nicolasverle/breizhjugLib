@@ -6,7 +6,6 @@ import com.zenika.tz.demo.deploy.Pod
 Pod call(Map params, Closure body) {
 
     Pod pod = new Pod()
-    pod.setName(params.name)
     pod.setImagePullSecrets(params.imagePullSecrets)
 
     try {

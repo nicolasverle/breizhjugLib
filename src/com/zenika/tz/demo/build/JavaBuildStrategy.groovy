@@ -1,8 +1,6 @@
 package com.zenika.tz.demo.build
 
 import com.zenika.tz.demo.CommandWrapper
-import com.zenika.tz.demo.ResultFormatEnum
-import com.zenika.tz.demo.test.QualityRequirements
 
 class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
 

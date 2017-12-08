@@ -47,7 +47,7 @@ class Deployment extends AbstractKubernetesResource {
     }
 
     void setPod(Pod pod) {
-        pod = yaml {
+        this.pod = yaml {
             pod.toString()
         }
     }

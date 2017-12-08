@@ -12,7 +12,7 @@ def call(Map params, Closure body) {
 
             body.resolveStrategy = Closure.DELEGATE_FIRST
             body.delegate = this
-            body()
+            deploy.setPod(body())
 
             deploy.configure()
             PipelineContextHolder.kubernetes.deploymentWraping = true

@@ -6,7 +6,7 @@ class Kubernetes extends CommandWrapper {
 
     String namespace
 
-    List<AbstractKubernetesResource> manifests
+    List<KubernetesResource> manifests
 
     boolean deploymentWraping
 
@@ -28,8 +28,8 @@ class Kubernetes extends CommandWrapper {
     }
 
     void apply() {
-        for(AbstractKubernetesResource resource : manifests) {
-            if(resource.class.manifest() == Pod.manifest() && deploymentWraping) continue
+        for(KubernetesResource resource : manifests) {
+            if(resource.manifest() == Pod.MANIFEST_FILE && deploymentWraping) continue
 
             if(manualValidation) {
                 resource.deploy(true)
@@ -43,7 +43,7 @@ class Kubernetes extends CommandWrapper {
         }
     }
 
-    void addResource(AbstractKubernetesResource resource) {
+    void addResource(KubernetesResource resource) {
         if(!manifests) {
             manifests = new LinkedList<>()
         }

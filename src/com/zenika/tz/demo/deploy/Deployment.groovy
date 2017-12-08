@@ -2,9 +2,11 @@ package com.zenika.tz.demo.deploy
 
 class Deployment extends AbstractKubernetesResource {
 
+    static final String MANIFEST_FILE = "deployment.yaml"
+
     int replicas
 
-    KubernetesResource pod
+    Pod pod
 
     def strategy
 
@@ -14,7 +16,6 @@ class Deployment extends AbstractKubernetesResource {
 
     def configure() {
         String name = appName()
-        def pod = yaml(Pod.manifest())
 
         def deployment = [
             "apiVersion": "apps/v1beta2",
@@ -45,7 +46,7 @@ class Deployment extends AbstractKubernetesResource {
         return deployment
     }
 
-    static String manifest() {
-        return "deployment.yaml"
+    String manifest() {
+        return MANIFEST_FILE
     }
 }

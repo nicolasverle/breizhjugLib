@@ -3,7 +3,7 @@ import com.zenika.tz.demo.deploy.Container
 import com.zenika.tz.demo.deploy.KubernetesResource
 import com.zenika.tz.demo.deploy.Pod
 
-def call(Map params, Closure body) {
+Pod call(Map params, Closure body) {
 
     Pod pod = new Pod()
     pod.setName(params.name)
@@ -25,6 +25,8 @@ def call(Map params, Closure body) {
 
     PipelineContextHolder.kubernetes.addResource(pod)
     trace(pod.toString())
+
+    return pod
 }
 
 Container container(Map params) {

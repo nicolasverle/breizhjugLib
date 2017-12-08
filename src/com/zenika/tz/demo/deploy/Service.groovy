@@ -2,6 +2,8 @@ package com.zenika.tz.demo.deploy
 
 class Service extends AbstractKubernetesResource {
 
+    static final String MANIFEST_FILE = "service.yaml"
+
     ServiceType type
 
     int targetPort
@@ -35,7 +37,7 @@ class Service extends AbstractKubernetesResource {
         return service
     }
 
-    static String manifest() {
-        return "service.yaml"
+    String manifest() {
+        return MANIFEST_FILE
     }
 }

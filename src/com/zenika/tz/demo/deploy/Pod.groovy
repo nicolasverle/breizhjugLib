@@ -2,6 +2,8 @@ package com.zenika.tz.demo.deploy
 
 class Pod extends AbstractKubernetesResource {
 
+    static final String MANIFEST_FILE = "pod.yaml"
+
     List<Container> containers
 
     List imagePullSecrets
@@ -46,7 +48,7 @@ class Pod extends AbstractKubernetesResource {
         return pod
     }
 
-    static String manifest() {
-        return "pod.yaml"
+    String manifest() {
+        return MANIFEST_FILE
     }
 }

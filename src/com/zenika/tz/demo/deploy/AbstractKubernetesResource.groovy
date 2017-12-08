@@ -21,7 +21,7 @@ abstract class AbstractKubernetesResource extends CommandWrapper implements Kube
         return PipelineContextHolder.deployContext.appPort
     }
 
-    abstract static String manifest()
+    abstract String manifest()
 
     abstract def configure()
 

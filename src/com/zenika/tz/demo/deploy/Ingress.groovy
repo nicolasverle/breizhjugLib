@@ -2,6 +2,8 @@ package com.zenika.tz.demo.deploy
 
 class Ingress extends AbstractKubernetesResource {
 
+    static final String MANIFEST_FILE = "ingress.yaml"
+
     String host
 
     Ingress(String host) {
@@ -40,8 +42,8 @@ class Ingress extends AbstractKubernetesResource {
         return ingress
     }
 
-    static String manifest() {
-        return "ingress.yaml"
+    String manifest() {
+        return MANIFEST_FILE
     }
 
 }

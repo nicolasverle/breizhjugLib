@@ -30,16 +30,15 @@ class Kubernetes extends CommandWrapper {
     void apply() {
         for(KubernetesResource resource : manifests) {
             if(resource.manifest() == Pod.MANIFEST_FILE && deploymentWraping) continue
-
-            if(manualValidation) {
-                resource.deploy(true)
-                if(confirm()) {
-                    resource.deploy(false)
-                } else {
-                    error("Build aborted by user.")
-                }
+            resource.deploy(manualValidation)
+        }
+        if(manualValidation) {
+            if(confirm()) {
+                manualValidation = false
+                apply()
+            } else {
+                error("Build aborted by user.")
             }
-
         }
     }
 

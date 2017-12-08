@@ -6,7 +6,7 @@ class Deployment extends AbstractKubernetesResource {
 
     int replicas
 
-    Pod pod
+    def pod
 
     def strategy
 
@@ -44,6 +44,12 @@ class Deployment extends AbstractKubernetesResource {
         writeYaml(manifest(), deployment)
 
         return deployment
+    }
+
+    void setPod(Pod pod) {
+        pod = yaml {
+            pod.toString()
+        }
     }
 
     String manifest() {

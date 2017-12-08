@@ -1,5 +1,6 @@
 import com.zenika.tz.demo.PipelineContextHolder
 import com.zenika.tz.demo.deploy.Deployment
+import com.zenika.tz.demo.deploy.Pod
 import groovy.transform.Field
 
 @Field Deployment deploy
@@ -12,7 +13,7 @@ def call(Map params, Closure body) {
 
             body.resolveStrategy = Closure.DELEGATE_FIRST
             body.delegate = this
-            deploy.setPod(body())
+            deploy.setPod((Pod)body())
 
             deploy.configure()
             PipelineContextHolder.kubernetes.deploymentWraping = true

@@ -25,8 +25,8 @@ class JavaBuildStrategy extends CommandWrapper implements BuildStrategy {
             tag = registry + appName()
         }
 
-        sh("docker build -f ${dockerfile} -t ${tag}:${appVersion()} .")
-        sh("docker push ${tag}:${appVersion()}")
+        sh("docker build -f ${dockerfile} -t ${tag} .")
+        sh("docker push ${tag}")
     }
 
     @Override

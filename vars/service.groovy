@@ -18,7 +18,6 @@ KubernetesResource call(Map params = null, Closure body) {
         body()
         service.configure()
         PipelineContextHolder.kubernetes.addResource(service)
-        trace(service.toString())
     } catch (err) {
         error(err.getMessage())
     }

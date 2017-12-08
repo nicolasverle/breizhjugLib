@@ -23,7 +23,6 @@ Pod call(Map params, Closure body) {
     }
 
     PipelineContextHolder.kubernetes.addResource(pod)
-    trace(pod.toString())
 
     return pod
 }

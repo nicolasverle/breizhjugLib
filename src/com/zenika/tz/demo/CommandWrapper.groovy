@@ -120,6 +120,12 @@ class CommandWrapper implements Serializable {
         return script.docker
     }
 
+    def color(Closure body) {
+        script.ansiColor('xterm') {
+            body()
+        }
+    }
+
     private static class CommandResultFormatter {
         @NonCPS
         def toXML(String body) {

@@ -18,8 +18,6 @@ def call(Map params, Closure body) {
             deploy.configure()
             PipelineContextHolder.kubernetes.deploymentWraping = true
             PipelineContextHolder.kubernetes.addResource(deploy)
-
-            trace(deploy.toString())
         }
     } catch (err) {
         error(err.getMessage())

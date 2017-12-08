@@ -8,7 +8,6 @@ def call(String host, Closure body) {
         body()
         ingress.configure()
         PipelineContextHolder.kubernetes.addResource(ingress)
-        trace(ingress.toString())
     } catch (err) {
         error(err.getMessage())
     }

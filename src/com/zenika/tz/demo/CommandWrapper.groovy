@@ -96,6 +96,13 @@ class CommandWrapper implements Serializable {
         script.writeYaml(file: fileName, data: content)
     }
 
+    boolean confirm() {
+        return userInput = script.input(
+                id: "confirm-${getClass().hashCode()}", message: 'On saute du plongeoir ?', parameters: [
+                [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Oui ?']
+        ])
+    }
+
     def parseFile(String name, ResultFormatEnum format = ResultFormatEnum.TEXT) {
         switch (format) {
             case ResultFormatEnum.JSON:

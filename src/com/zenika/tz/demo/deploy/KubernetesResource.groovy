@@ -4,7 +4,7 @@ interface KubernetesResource extends Serializable {
 
     def configure()
 
-    void deploy()
+    void deploy(boolean dryRun)
 
     void rollback()
 

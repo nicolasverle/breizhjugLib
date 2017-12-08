@@ -1,9 +1,6 @@
 package com.zenika.tz.demo.deploy
 
-import com.zenika.tz.demo.CommandWrapper
-import com.zenika.tz.demo.PipelineContextHolder
-
-class Ingress extends CommandWrapper implements KubernetesResource {
+class Ingress extends AbstractKubernetesResource {
 
     String host
 
@@ -12,13 +9,13 @@ class Ingress extends CommandWrapper implements KubernetesResource {
     }
 
     def configure() {
-        def service = yaml(Service.manifest())
+        String name = appName()
 
         def ingress = [
             'apiVersion': 'extensions/v1beta1',
             'kind': 'Ingress',
             'metadata': [
-                'name': service.metadata.name,
+                'name': name,
                 'annotations': [
                     'kubernetes.io/ingress.class': 'traefik'
                 ]
@@ -29,8 +26,8 @@ class Ingress extends CommandWrapper implements KubernetesResource {
                     'http': [
                         'paths': [[
                             'backend': [
-                              'serviceName': PipelineContextHolder.deployContext.appName,
-                              'servicePort': PipelineContextHolder.deployContext.appPort
+                              'serviceName': name,
+                              'servicePort': appPort()
                             ]
                         ]]
                     ]
@@ -42,15 +39,6 @@ class Ingress extends CommandWrapper implements KubernetesResource {
 
         return ingress
     }
-
-    void deploy() {
-        sh("kubectl apply -f ${manifest()}")
-    }
-
-    void rollback() {
-
-    }
-
 
     static String manifest() {
         return "ingress.yaml"

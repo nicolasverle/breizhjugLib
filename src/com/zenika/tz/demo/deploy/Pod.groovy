@@ -1,21 +1,14 @@
 package com.zenika.tz.demo.deploy
 
-import com.zenika.tz.demo.CommandWrapper
-import com.zenika.tz.demo.PipelineContextHolder
-
-class Pod extends CommandWrapper implements KubernetesResource {
-
-    String name
+class Pod extends AbstractKubernetesResource {
 
     List<Container> containers
 
     List imagePullSecrets
 
-    Pod() {
-        name = PipelineContextHolder.deployContext.appName
-    }
-
     def configure() {
+        String name = appName()
+
         def pod = [
                 'apiVersion': 'v1',
                 'kind': 'Pod',
@@ -51,18 +44,6 @@ class Pod extends CommandWrapper implements KubernetesResource {
         writeYaml(manifest(), pod)
 
         return pod
-    }
-
-    void deploy() {
-        sh("kubectl apply -f ${manifest()}")
-    }
-
-    void rollback() {
-        sh("kubectl delete -f ${manifest()}")
-    }
-
-    String name() {
-        return name
     }
 
     static String manifest() {

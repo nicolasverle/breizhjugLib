@@ -14,11 +14,14 @@ KubernetesResource call(Map params = null, Closure body) {
 
     Service service = new Service()
     service.type = serviceType
-    body()
-
-    service.configure()
-
-    PipelineContextHolder.kubernetes.addResource(service)
+    try {
+        body()
+        service.configure()
+        PipelineContextHolder.kubernetes.addResource(service)
+        trace(service.toString())
+    } catch (err) {
+        error(err.getMessage())
+    }
 
     return service
 }

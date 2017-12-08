@@ -1,25 +1,13 @@
 package com.zenika.tz.demo.deploy
 
-import com.zenika.tz.demo.CommandWrapper
-import com.zenika.tz.demo.PipelineContextHolder
-
-class Service extends CommandWrapper implements KubernetesResource {
-
-    String name
+class Service extends AbstractKubernetesResource {
 
     ServiceType type
 
-    int port
-
     int targetPort
 
-    Service() {
-        name = PipelineContextHolder.deployContext.appName
-        port = PipelineContextHolder.deployContext.appPort
-    }
-
     def configure() {
-        def deployment = yaml("deployment.yaml")
+        String name = appName()
 
         def service = [
             'apiVersion': 'v1',
@@ -33,7 +21,7 @@ class Service extends CommandWrapper implements KubernetesResource {
                 ],
                 'ports': [[
                     'protocol': "TCP",
-                    'port': port
+                    'port': appPort()
                 ]],
                 'type': type.toString()
             ]
@@ -45,19 +33,6 @@ class Service extends CommandWrapper implements KubernetesResource {
 
         writeYaml(manifest(), service)
         return service
-    }
-
-    void deploy() {
-        try {
-            sh("kubectl apply -f ${manifest()}")
-        } catch (err) {
-            error(err.getMessage())
-        }
-
-    }
-
-    void rollback() {
-        sh("kubectl delete -f ${manifest()}")
     }
 
     static String manifest() {

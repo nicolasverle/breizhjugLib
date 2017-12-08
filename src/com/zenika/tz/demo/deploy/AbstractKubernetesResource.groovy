@@ -1,19 +1,33 @@
 package com.zenika.tz.demo.deploy
 
 import com.zenika.tz.demo.CommandWrapper
+import com.zenika.tz.demo.PipelineContextHolder
 
-abstract class AbstractKubernetesResource extends CommandWrapper {
+abstract class AbstractKubernetesResource extends CommandWrapper implements KubernetesResource {
 
-    void deploy() {
-        sh("kubectl apply -f ${manifest()}")
+    void deploy(boolean dryRun) {
+        sh("kubectl apply ${(dryRun ? "--dry-run=true" : "")} -f ${manifest()}")
     }
 
     void rollback() {
         sh("kubectl delete -f ${manifest()}")
     }
 
-    abstract String manifest()
+    String appName() {
+        return PipelineContextHolder.deployContext.appName
+    }
+
+    int appPort() {
+        return PipelineContextHolder.deployContext.appPort
+    }
+
+    abstract static String manifest()
 
     abstract def configure()
+
+    @Override
+    String toString() {
+        return cmd("cat ${manifest()}")
+    }
 
 }

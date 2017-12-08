@@ -4,8 +4,13 @@ import com.zenika.tz.demo.deploy.Ingress
 def call(String host, Closure body) {
 
     Ingress ingress = new Ingress(host)
-    body()
-    ingress.configure()
-    PipelineContextHolder.kubernetes.addResource(ingress)
+    try {
+        body()
+        ingress.configure()
+        PipelineContextHolder.kubernetes.addResource(ingress)
+        trace(ingress.toString())
+    } catch (err) {
+        error(err.getMessage())
+    }
 
 }

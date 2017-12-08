@@ -4,13 +4,20 @@ def call(Map params, Closure body) {
 
     PipelineContextHolder.deployContext.appName = params.appName
     PipelineContextHolder.deployContext.appPort = params.appPort
+    if(params.verbose) {
+        PipelineContextHolder.verbose = true
+    }
 
     node("master") {
         stage("Deploying application") {
             if(body) {
-                body.resolveStrategy = Closure.DELEGATE_FIRST
-                body.delegate = this
-                body()
+                try {
+                    body.resolveStrategy = Closure.DELEGATE_FIRST
+                    body.delegate = this
+                    body()
+                } catch(err) {
+                    error(err.getMessage())
+                }
             }
         }
     }

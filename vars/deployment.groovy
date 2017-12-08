@@ -6,16 +6,22 @@ import groovy.transform.Field
 
 def call(Map params, Closure body) {
 
-    if(body) {
-        deploy = new Deployment(params.replicas)
+    try {
+        if(body) {
+            deploy = new Deployment(params.replicas)
 
-        body.resolveStrategy = Closure.DELEGATE_FIRST
-        body.delegate = this
-        body()
+            body.resolveStrategy = Closure.DELEGATE_FIRST
+            body.delegate = this
+            body()
 
-        deploy.configure()
+            deploy.configure()
+            PipelineContextHolder.kubernetes.deploymentWraping = true
+            PipelineContextHolder.kubernetes.addResource(deploy)
 
-        PipelineContextHolder.kubernetes.addResource(deploy)
+            trace(deploy.toString())
+        }
+    } catch (err) {
+        error(err.getMessage())
     }
 
 }

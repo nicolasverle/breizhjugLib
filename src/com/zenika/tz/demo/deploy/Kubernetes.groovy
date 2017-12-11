@@ -28,12 +28,20 @@ class Kubernetes extends CommandWrapper {
     }
 
     void apply() {
-        echo(manifests.get(0).toString())
+        for (int i = 0; i < ; i++) {
+            if(manifests.get(i).manifest() == Pod.MANIFEST_FILE && deploymentWraping) continue
+            echo(manifests.get(i).toString())
+            manifests.get(i).deploy(manualValidation)
+        }
+
+        /*
         for(KubernetesResource resource : manifests) {
             if(resource.manifest() == Pod.MANIFEST_FILE && deploymentWraping) continue
             echo(resource.toString())
             resource.deploy(manualValidation)
         }
+        */
+
         if(manualValidation) {
             askForConfirmation()
             manualValidation = false

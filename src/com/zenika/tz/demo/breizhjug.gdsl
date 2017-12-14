@@ -55,7 +55,7 @@ contributor(kubeCtx) {
     def call = enclosingCall("deployment")
     if(call) {
         method(name: "rollingUpdate", namedParams: [parameter(name: "maxSurge", type: 'java.lang.Integer'), parameter(name: "maxUnavailable", type: 'java.lang.Integer')], doc: "Set rolling update policy")
-        method(name: "container", namedParams: [parameter(name: "image", type: 'java.lang.String'), parameter(name: "imagePullPolicy", type: "java.lang.String")], doc: "Set containers for pod")
+        method(name: "pod", namedParams: [parameter(name: "name", type: 'java.lang.String'), parameter(name: "imagePullSecrets", type: "java.util.List")], params: [body: 'groovy.lang.Closure'], doc: "Set pod resource")
     }
 }
 
